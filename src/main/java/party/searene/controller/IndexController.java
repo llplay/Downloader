@@ -1,6 +1,7 @@
 package party.searene.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -8,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
+
+    private String title = "Downloader";
+
     @RequestMapping("/")
-    String index() {
+    String index(Model model) {
+        model.addAttribute("title", title);
         return "index";
     }
 }

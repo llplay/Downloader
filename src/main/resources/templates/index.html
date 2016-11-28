@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Downloader</title>
+    <meta charset="UTF-8"/>
+    <link href="../static/css/style.css" th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+    <script src="../static/vendor/bower_components/jquery/dist/jquery.min.js"
+            th:src="@{vendor/bower_components/jquery/dist/jquery.js}"></script>
+    <script src="../static/vendor/bower_components/jquery.easing/js/jquery.easing.min.js"
+            th:src="@{vendor/bower_components/jquery.easing/js/jquery.easing.min.js}"></script>
+    <title th:text="${title}">Downloader</title>
 </head>
 <body>
 <h1>Hello World!</h1>
