@@ -1,12 +1,12 @@
 package party.searene.client;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import party.searene.annotation.Log;
 import party.searene.exception.XmlRpcClientInitializationException;
 
 import java.util.List;
@@ -17,32 +17,31 @@ import java.util.List;
 @Repository
 public class XRClient {
 
-    private final XmlRpcClient server;
+    private XmlRpcClient client;
 
-    @Log
-    private Logger logger;
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
-    public XRClient(XmlRpcClient server) throws XmlRpcClientInitializationException {
-        if(server == null) {
+    public XRClient(XmlRpcClient client) throws XmlRpcClientInitializationException {
+        if(client == null) {
             throw new XmlRpcClientInitializationException(
                     "Something was wrong while initializing XmlRpcClient."
             );
         }
-        this.server = server;
+        this.client = client;
     }
 
     private Object execute(String method, List params) {
         try {
-            return server.execute(method, params);
+            return client.execute(method, params);
         } catch (XmlRpcException e) {
-            logger.error("Exception occurred, message: %s, stacktrace: %s",
-                    e.getMessage(), ExceptionUtils.getStackTrace(e));
+            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
             return null;
         }
     }
 
-    public Object listMethods() {
-        return execute("system.listMethods", null);
+    public Object[] listMethods() {
+        return (Object[]) execute("system.listMethods", null);
     }
 }

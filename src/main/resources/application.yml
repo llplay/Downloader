@@ -1,2 +1,5 @@
 XmlRpc:
-  url: 'http://searene.party:5000/RPC2'
+  url: 'http://searene.party/RPC2'
+spring:
+  main:
+    web-environment: false

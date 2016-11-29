@@ -1,13 +1,13 @@
 package party.searene.configuration;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import party.searene.annotation.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,8 +18,7 @@ import java.net.URL;
 @Configuration
 public class XmlRpcConfiguration {
 
-    @Log
-    private Logger logger;
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Value("${XmlRpc.url}")
     private String xmlRpcUrl;
