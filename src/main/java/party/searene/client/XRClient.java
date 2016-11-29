@@ -42,7 +42,7 @@ public class XRClient {
         }
     }
 
-    public Object listMethod() {
+    public Object listMethods() {
         return execute("system.listMethods", null);
     }
 }
