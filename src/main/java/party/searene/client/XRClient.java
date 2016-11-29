@@ -1,5 +1,6 @@
 package party.searene.client;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.Logger;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import party.searene.annotation.Log;
 import party.searene.exception.XmlRpcClientInitializationException;
-import party.searene.util.Util;
 
 import java.util.List;
 
@@ -36,7 +36,8 @@ public class XRClient {
         try {
             return server.execute(method, params);
         } catch (XmlRpcException e) {
-            Util.logException(e);
+            logger.error("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e));
             return null;
         }
     }

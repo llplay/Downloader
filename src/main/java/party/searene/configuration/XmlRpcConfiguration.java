@@ -1,5 +1,6 @@
 package party.searene.configuration;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.Logger;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import party.searene.annotation.Log;
-import party.searene.util.Util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,7 +34,8 @@ public class XmlRpcConfiguration {
             xmlRpcClient.setConfig(config);
             return xmlRpcClient;
         } catch (MalformedURLException e) {
-            Util.logException(e);
+            logger.error("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e));
             return null;
         }
     }
