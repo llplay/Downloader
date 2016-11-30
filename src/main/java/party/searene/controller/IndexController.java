@@ -20,7 +20,6 @@ public class IndexController {
     @RequestMapping("/")
     String index(Model model) {
         model.addAttribute("title", title);
-        System.out.println(xrClient.listMethods());
         return "index";
     }
 }

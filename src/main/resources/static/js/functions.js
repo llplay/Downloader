@@ -26,5 +26,26 @@ $(document).ready(function() {
 		$('.popup').css({ opacity: 0 });
 	});
 
-});
+	// upload
+	$('.upload-btn').click(function() {
+        $.ajax({
+            url: "/upload",
+            type: "POST",
+            data: new FormData($("#upload-file-form")[0]),
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function () {
+                // Handle upload success
+                $("#upload-file-message").text("File succesfully uploaded");
+            },
+            error: function () {
+                // Handle upload error
+                $("#upload-file-message").text(
+                    "File not uploaded (perhaps it's too much big)");
+            }
+        });
+	});
 
+});

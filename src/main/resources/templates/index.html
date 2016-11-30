@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8"/>
     <link href="../static/css/style.css" th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/vendor/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{vendor/bower_components/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <script src="../static/vendor/bower_components/jquery/dist/jquery.min.js"
             th:src="@{vendor/bower_components/jquery/dist/jquery.js}"></script>
     <script src="../static/vendor/bower_components/jquery.easing/js/jquery.easing.min.js"
             th:src="@{vendor/bower_components/jquery.easing/js/jquery.easing.min.js}"></script>
+    <script src="../static/vendor/bower_components/bootstrap/dist/js/bootstrap.min.js"
+            th:src="@{vendor/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script src="../static/js/functions.js"
+            th:src="@{js/functions.js}"></script>
     <title th:text="${title}">Downloader</title>
 </head>
 <body>
-<h1>Hello World!</h1>
+<div id="search-form">
+    <form class="form-container" action="">
+        <input type="text" class="search-field" value="Input the magnetic link here..." />
+        <div class="submit-container">
+            <input type="submit" value="" class="submit" />
+        </div>
+    </form>
+    <div class="popup">
+        <p>Please fill out this field.</p>
+    </div>
+</div>
+<form id="upload-file-form">
+    <label for="upload-file-input">Upload your file:</label>
+    <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
+    <button type="button" class="btn btn-default upload-btn">Upload</button>
+    <span id="upload-file-message"></span>
+</form>
 </body>
 </html>
