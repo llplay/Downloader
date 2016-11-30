@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import party.searene.exception.XmlRpcClientInitializationException;
 
+import java.io.*;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by searene on 11/28/16.
@@ -43,5 +45,63 @@ public class XRClient {
 
     public Object[] listMethods() {
         return (Object[]) execute("system.listMethods", null);
+    }
+
+    /**
+     * upload bt file
+     * @param file
+     * @return
+     */
+    public Object AddByFile(File file){
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[(int) file.length()];
+            int read = 0;
+            while ((read = in.read(buffer, 0, buffer.length)) > 0) {
+                baos.write(buffer, 0, read);
+            }
+            byte[] bytes = baos.toByteArray();
+            client.execute("load_raw_start", new Object[] { bytes });
+        } catch (Exception e) {
+            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
+        }
+        return null;
+    }
+
+    /**
+     * 暂停任务
+     * @param uniqueId
+     * @return
+     */
+    public Object Pause(String uniqueId){
+        Vector<String> params= new Vector<String>();
+        params.addElement(uniqueId);
+        try {
+            client.execute("load_raw_start", params);
+        } catch (XmlRpcException e) {
+            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
+        }
+        return null;
+    }
+
+    /**
+     * 恢复任务
+     * @param uniqueId
+     * @return
+     */
+    public Object Resum(String uniqueId){
+        Vector<String> params= new Vector<String>();
+        params.addElement(uniqueId);
+        try {
+            client.execute("load_raw_start", params);
+        } catch (XmlRpcException e) {
+            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
+                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
+        }
+        return null;
     }
 }
