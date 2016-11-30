@@ -80,7 +80,7 @@ public class XRClient {
         Vector<String> params= new Vector<String>();
         params.addElement(uniqueId);
         try {
-            client.execute("load_raw_start", params);
+            client.execute("d.pause", params);
         } catch (XmlRpcException e) {
             logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
                     e.getMessage(), ExceptionUtils.getStackTrace(e)));
@@ -97,7 +97,7 @@ public class XRClient {
         Vector<String> params= new Vector<String>();
         params.addElement(uniqueId);
         try {
-            client.execute("load_raw_start", params);
+            client.execute("d.resume", params);
         } catch (XmlRpcException e) {
             logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
                     e.getMessage(), ExceptionUtils.getStackTrace(e)));
