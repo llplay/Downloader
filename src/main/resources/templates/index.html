@@ -4,33 +4,89 @@
     <meta charset="UTF-8"/>
     <link href="../static/css/style.css" th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
     <link href="../static/vendor/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{vendor/bower_components/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/vendor/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" th:href="@{vendor/bower_components/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/vendor/bower_components/components-font-awesome/css/font-awesome.min.css" th:href="@{vendor/bower_components/components-font-awesome/css/font-awesome.min.css}" rel="stylesheet" media="screen"/>
     <script src="../static/vendor/bower_components/jquery/dist/jquery.min.js"
             th:src="@{vendor/bower_components/jquery/dist/jquery.js}"></script>
     <script src="../static/vendor/bower_components/jquery.easing/js/jquery.easing.min.js"
             th:src="@{vendor/bower_components/jquery.easing/js/jquery.easing.min.js}"></script>
     <script src="../static/vendor/bower_components/bootstrap/dist/js/bootstrap.min.js"
             th:src="@{vendor/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <script src="../static/js/functions.js"
-            th:src="@{js/functions.js}"></script>
+    <script src="../static/js/upload.js"
+            th:src="@{js/upload.js}"></script>
+    <script src="../static/js/animation.js"
+            th:src="@{js/animation.js}"></script>
     <title th:text="${title}">Downloader</title>
 </head>
 <body>
-<div id="search-form">
-    <form class="form-container" action="">
-        <input type="text" class="search-field" value="Input the magnetic link here..." />
-        <div class="submit-container">
-            <input type="submit" value="" class="submit" />
+<div class="container">
+    <div class="header">
+        <h1>RDownloader</h1>
+        <div class="hr"></div>
+    </div>
+    <div class="control-panel">
+        <button type="button" class="btn btn-default btn-add pull-left" data-toggle="modal" data-target="#add" title="Add a task"><i class="fa fa-plus"></i> Add</button>
+        <button type="button" class="btn btn-default btn-start-all pull-left" data-toggle="tooltip" title="Start all"><i class="fa fa-play" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default btn-stop-all pull-left" data-toggle="tooltip" title="Stop all"><i class="fa fa-stop" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default btn-remove-all pull-left" data-toggle="tooltip" title="Remove all finished tasks"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default btn-refresh pull-right" data-toggle="tooltip" title="Refresh"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-default btn-settings pull-right" data-toggle="tooltip" title="Settings"><i class="fa fa-cog" aria-hidden="true"></i></button>
+    </div>
+    <div class="clear"></div>
+    <div class="task">
+        <div class="active-task-label task-label pull-left">
+            <h4><i class="fa fa-tasks" aria-hidden="true"></i> Active tasks</h4>
         </div>
-    </form>
-    <div class="popup">
-        <p>Please fill out this field.</p>
+        <div class="clear"></div>
+        <div class="tasks">
+            <div class="hr"></div>
+            <div class="information"><b>No active tasks</b></div>
+            <div class="hr"></div>
+        </div>
+    </div>
+    <div class="task">
+        <div class="other-task-label task-label pull-left">
+            <h4><i class="fa fa-tasks" aria-hidden="true"></i> Other tasks</h4>
+        </div>
+        <div class="clear"></div>
+        <div class="tasks">
+            <div class="hr"></div>
+            <div class="information"><b>No other tasks</b></div>
+            <div class="hr"></div>
+        </div>
     </div>
 </div>
-<form id="upload-file-form">
-    <label for="upload-file-input">Upload your file:</label>
-    <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
-    <button type="button" class="btn btn-default upload-btn">Upload</button>
-    <span id="upload-file-message"></span>
-</form>
+<!-- Modal -->
+<div id="add" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add a task</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Input magnetic link..."></input>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">Upload a torrent</button>
+                        </span>
+                </div><!-- /input-group -->
+
+                <!--<form id="upload-file-form">-->
+                <!--<label for="upload-file-input">Upload your file:</label>-->
+                <!--<input id="upload-file-input" type="file" name="uploadfile" accept="*" />-->
+                <!--<button type="button" class="btn btn-default upload-btn">Upload</button>-->
+                <!--<span id="upload-file-message"></span>-->
+                <!--</form>-->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Add</button><button class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
