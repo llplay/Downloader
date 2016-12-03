@@ -11,6 +11,7 @@ import party.searene.exception.XmlRpcClientInitializationException;
 
 import java.io.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -33,7 +34,7 @@ public class XRClient {
         this.client = client;
     }
 
-    private Object execute(String method, List params) {
+    private Object execute(String method, Vector params) {
         try {
             return client.execute(method, params);
         } catch (XmlRpcException e) {
@@ -79,13 +80,8 @@ public class XRClient {
     public Object Pause(String uniqueId){
         Vector<String> params= new Vector<String>();
         params.addElement(uniqueId);
-        try {
-            client.execute("d.pause", params);
-        } catch (XmlRpcException e) {
-            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
-                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
-        }
-        return null;
+
+        return execute("d.pause", params);
     }
 
     /**
@@ -96,12 +92,53 @@ public class XRClient {
     public Object Resum(String uniqueId){
         Vector<String> params= new Vector<String>();
         params.addElement(uniqueId);
-        try {
-            client.execute("d.resume", params);
-        } catch (XmlRpcException e) {
-            logger.error(String.format("Exception occurred, message: %s, stacktrace: %s",
-                    e.getMessage(), ExceptionUtils.getStackTrace(e)));
-        }
+        return execute("d.resume", params);
+    }
+
+    /**
+     * 获取任务列表
+     * @return
+     */
+    public Object[] getTaskList() {
+        Vector<String> params = new Vector<>();
+//        params.addElement("main");
+//        params.addElement("d.name=");
+//        params.addElement("d.state=");
+//        params.addElement("d.get_down_rate=");
+        return (Object[])execute("download_list", params);
+    }
+
+    /**
+     * 获取特定ID的task name
+     * @param uniqueId task Id
+     * @return task name
+     */
+    public Object getTaskName(String uniqueId){
+        Vector<String> params = new Vector<>();
+        params.addElement(uniqueId);
+        return (Object)execute("d.name", params);
+    }
+
+    /**
+     * 获取特定ID的task state
+     * @param uniqueId task Id
+     * @return task state
+     */
+    public Object getTaskState(String uniqueId) {
+        Vector<String> params = new Vector<>();
+        params.addElement(uniqueId);
+        return (Object)execute("d.get_state", params);
+    }
+
+
+    /**
+     * 获取active task
+     * @return
+     */
+    public Object[] getActiveTasks(){
+
         return null;
     }
+
+
 }
